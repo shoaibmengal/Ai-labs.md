@@ -2,7 +2,7 @@
 My Python and AI lab experiments and assignments.
 # My AI Labs & Course Work
 
-## Week 1: Introduction to AI & Knowledge-Based Systems
+## Week 1: Practical Lab 1: Building a Knowledge-Based System (KBS)
 - **Core Concepts:** Definition of AI, Turing Test, rational agents.
 - **Practical Lab:** Setting up Python environment and building a basic rule-based expert system.
 
