@@ -1,7 +1,3 @@
-Absolutely — below is a polished, professional English version of your assignment with extra details, clear code, sample output, and presentation content. It is designed to look strong in Google Colab and is suitable for a 50-mark assignment with presentation.
-
-1) Complete Assignment Solution in English
-
 Exercise 1: Degree Honors Rule
 Add a new rule to UNIVERSITY_KB["rules"] for students completing their degree program:
 
