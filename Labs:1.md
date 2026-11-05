@@ -315,19 +315,6 @@ This project demonstrates rule-based reasoning for evaluating students.
    - disciplinary_warnings == 0
 
 ## How it works
-The application checks each student's facts against the rules and prints the condition results step by step.
-
-## Example Output
-...
-```
-
-7) Final Short Answer for your assignment
-
-Use this final concise paragraph in your report:
-
-“This project demonstrates a rule-based student evaluation system using forward chaining. A new rule was added to the knowledge base for Magna Cum Laude Honors, where a student qualifies if their CGPA is at least 3.70 and their disciplinary warnings are zero. The evaluate_student() function prints each condition as it is checked, making the reasoning process visible and explainable. The system successfully evaluates multiple student profiles and returns matching academic statuses such as Magna Cum Laude Honors, Dean’s List, or no matching rule.”
-
-If you want, I can do one more step and make this even more professional by creating:
-- a full GitHub README file,
+The application checks ea
 - a presentation-ready slide deck in text format,
 - or a cleaner notebook version with exact formatting for Colab.
