@@ -1,11 +1,11 @@
 # Hi, I'm Shoaib Mengal 👋
 
-### CS Student | Python & AI Learner
+### Computer Science Student | Python & AI Learner
 
-🎓 Computer Science Student at University of Balochistan
-🌱 Abhi Python aur AI seekh raha hun
-💻 Machine Learning me interest hai
-🎯 Goal: AI Developer banna hai
+🎓 Computer Science Student at the University of Balochistan
+🌱 Currently learning Python and Artificial Intelligence
+💻 Interested in Machine Learning and Data Science
+🎯 Goal: To become a Professional AI Developer
 
 ---
 
@@ -13,16 +13,16 @@
 - Python
 - HTML / CSS
 - Git & GitHub
-- Learning: Machine Learning
+- Machine Learning (Learning)
 
-### 📚 Abhi Kya Seekh Raha Hun
+### 📚 Currently Learning
 - Python Programming
 - Artificial Intelligence
 - GitHub Projects
 
-### 📫 Mujhse Rabta Karein
+### 📫 Contact
 - GitHub: github.com/shoaibmengal
 - Location: Balochistan, Pakistan
 
 ---
-⭐ Meri profile achi lagi to Follow kar dein!
+⭐ If you like my profile, feel free to follow me!
