@@ -136,10 +136,6 @@ To understand Colab, knowledge representation, inference mechanism, and rule-bas
 ### Result
 The system correctly classified students based on attendance and marks and could be extended for degree honors and other academic rules.
 
----
-
-If you want, I can also generate:
-1. a shorter version for class submission,
-2. a fully formatted Word-style report,
+---a fully formatted Word-style report,
 3. a cleaner notebook-ready version with comments,
-4. or a polished lab report in Urdu/English bilingual style.
+4. or a polished lab report in Urdu/English bilingual st
