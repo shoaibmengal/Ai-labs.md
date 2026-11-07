@@ -1,211 +1,145 @@
-Exercise 1: Degree Honors Rule
-Add a new rule to UNIVERSITY_KB["rules"] for students completing their degree program:
 
-Condition:
-- cgpa >= 3.70
-- disciplinary_warnings == 0
+## Part 4: Student Exercises
 
-Then:
-- Status: "Graduated with Magna Cum Laude Honors"
+### Exercise 1: Add a Degree Honors Rule
 
-Exercise 2: Tracing Forward Chaining
-Modify evaluate_student() so that it prints each evaluated rule condition as the loop runs, showing step-by-step reasoning.
+Add a new rule in the `UNIVERSITY_KB["rules"]` list for graduation honors:
 
-Below is a complete and professional Colab-ready solution.
+- Condition: `cgpa >= 3.70` and `disciplinary_warnings == 0`
+- Result: Status = "Graduated with Magna Cum Laude Honors"
 
-Code (Google Colab)
+### Example Solution
 
 ```python
-# ===========================================
-# University Student Evaluation System
-# Part 2: Hands-On Student Exercises
-# ===========================================
-
-# Knowledge Base
-UNIVERSITY_KB = {
-    "rules": []
-}
-
-# Existing rule example: Dean's List
-deans_list_rule = {
-    "id": "R-02",
-    "name": "Dean's List",
-    "checks": [
-        ("cgpa >= 3.50", lambda student: student.get("cgpa", 0) >= 3.50),
-        ("disciplinary_warnings == 0", lambda student: student.get("disciplinary_warnings", 0) == 0),
-    ],
-    "status": "Dean's List"
-}
-
-# Exercise 1: Add new rule for Magna Cum Laude Honors
-magna_cum_laude_rule = {
-    "id": "R-01",
-    "name": "Magna Cum Laude Honors",
-    "checks": [
-        ("cgpa >= 3.70", lambda student: student.get("cgpa", 0) >= 3.70),
-        ("disciplinary_warnings == 0", lambda student: student.get("disciplinary_warnings", 0) == 0),
-    ],
-    "status": "Graduated with Magna Cum Laude Honors"
-}
-
-# Add rules to the knowledge base
-if not any(rule.get("id") == "R-02" for rule in UNIVERSITY_KB["rules"]):
-    UNIVERSITY_KB["rules"].append(deans_list_rule)
-
-if not any(rule.get("id") == "R-01" for rule in UNIVERSITY_KB["rules"]):
-    UNIVERSITY_KB["rules"].insert(0, magna_cum_laude_rule)
-
-print("Knowledge Base Ready")
-print("Rules in order:", [rule["name"] for rule in UNIVERSITY_KB["rules"]])
-```
-
-Forward chaining with trace:
-
-```python
-def evaluate_student(student, knowledge_base=UNIVERSITY_KB):
-    """
-    Evaluate student against all rules.
-    Prints each rule condition while checking,
-    so the logical deduction process is visible.
-    """
-    student_name = student.get("name", "Unknown Student")
-    print("\n" + "=" * 80)
-    print(f"Student: {student_name}")
-    print(f"CGPA: {student.get('cgpa', 0)}")
-    print(f"Disciplinary Warnings: {student.get('disciplinary_warnings', 0)}")
-    print("=" * 80)
-
-    for rule_number, rule in enumerate(knowledge_base["rules"], start=1):
-        print(f"\nChecking Rule {rule_number}: {rule['name']} (ID: {rule['id']})")
-        condition_results = []
-
-        for condition, checker in rule["checks"]:
-            passed = bool(checker(student))
-            condition_results.append(passed)
-
-            if passed:
-                print(f"  [PASS] {condition}")
-            else:
-                print(f"  [FAIL] {condition}")
-
-        if all(condition_results):
-            print(f"\nRule matched successfully!")
-            print(f"Status: {rule['status']}")
-            return rule["status"]
-
-        print("Rule did not match. Moving to next rule.")
-
-    print("\nNo rule matched the student profile.")
-    return "No matching rule"
-```
-
-Test data:
-
-```python
-students = [
-    {
-        "name": "Ayesha Khan",
-        "cgpa": 3.86,
+UNIVERSITY_KB["rules"].append({
+    "id": "RULE_07",
+    "conditions": {
+        "cgpa_min": 3.70,
         "disciplinary_warnings": 0
     },
-    {
-        "name": "Bilal Ahmed",
-        "cgpa": 3.60,
-        "disciplinary_warnings": 0
-    },
-    {
-        "name": "Sara Malik",
-        "cgpa": 3.95,
-        "disciplinary_warnings": 1
+    "condition_type": "degree_honors",
+    "grade": "A+",
+    "status": "Graduated with Magna Cum Laude Honors",
+    "action": "Eligible for graduation honors recognition."
+})
+```
+
+---
+
+### Exercise 2: Trace Forward Chaining
+
+The student should modify the `evaluate_student()` function to print each rule as it is tested, demonstrating step-by-step logical deduction.
+
+### Example Improved Version
+
+```python
+def evaluate_student(student_record, kb):
+    print(f"\n--- EVALUATING STUDENT: {student_record['student_name']} (ID: {student_record['student_id']}) ---")
+    
+    # Attendance rule
+    if student_record["attendance"] < 75:
+        print("Checking attendance rule...")
+        attendance_rule = next(r for r in kb["rules"] if r["condition_type"] == "attendance_below")
+        print(f"Attendance {student_record['attendance']} < 75: true")
+        return {
+            "rule_id": attendance_rule["id"],
+            "grade": attendance_rule["grade"],
+            "status": attendance_rule["status"],
+            "action": attendance_rule["action"]
+        }
+    
+    print("Attendance is sufficient. Checking marks rules...")
+    marks = student_record["total_marks"]
+    
+    for rule in kb["rules"]:
+        if rule["condition_type"] == "marks_range":
+            lower = rule["conditions"]["marks_min"]
+            upper = rule["conditions"]["marks_max"]
+            print(f"Checking {rule['id']}: marks {marks} in range {lower}-{upper}")
+            if lower <= marks <= upper:
+                print(f"Rule {rule['id']} matched.")
+                return {
+                    "rule_id": rule["id"],
+                    "grade": rule["grade"],
+                    "status": rule["status"],
+                    "action": rule["action"]
+                }
+    
+    return {
+        "rule_id": "UNKNOWN",
+        "grade": "N/A",
+        "status": "Invalid Score Entry",
+        "action": "Verify submitted marks with the exam department."
     }
-]
-
-for student in students:
-    status = evaluate_student(student)
-    print("\nFinal Result:", status)
-    print("-" * 80)
 ```
 
-Sample Output
+This trace helps students understand that the system is performing forward chaining:
+- It checks the facts
+- It evaluates conditions
+- It fires the matched rule
+- It produces a conclusion
 
-```text
-Knowledge Base Ready
-Rules in order: ['Magna Cum Laude Honors', "Dean's List"]
+---
 
-================================================================================
-Student: Ayesha Khan
-CGPA: 3.86
-Disciplinary Warnings: 0
-================================================================================
+## Part 5: Final Lab Discussion
 
-Checking Rule 1: Magna Cum Laude Honors (ID: R-01)
-  [PASS] cgpa >= 3.70
-  [PASS] disciplinary_warnings == 0
+This lab demonstrates the main idea behind a rule-based expert system:
+- A knowledge base stores rules and facts
+- An inference engine processes information
+- The system reaches decisions based on logical conditions
 
-Rule matched successfully!
-Status: Graduated with Magna Cum Laude Honors
+This is a simplified version of how real expert systems work in fields such as:
+- Medical diagnosis
+- Banking risk assessment
+- Industrial fault detection
+- Academic advising
+- Legal decision support
 
-Final Result: Graduated with Magna Cum Laude Honors
---------------------------------------------------------------------------------
+---
 
-================================================================================
-Student: Bilal Ahmed
-CGPA: 3.6
-Disciplinary Warnings: 0
-================================================================================
+## Conclusion
 
-Checking Rule 1: Magna Cum Laude Honors (ID: R-01)
-  [FAIL] cgpa >= 3.70
-  [PASS] disciplinary_warnings == 0
-Rule did not match. Moving to next rule.
+In this lab, we successfully:
+- Set up a Python environment in Google Colab
+- Created a Knowledge Base for university grading rules
+- Built an inference engine
+- Evaluated student records
+- Added a degree honors rule
+- Demonstrated forward chaining and rule tracing
 
-Checking Rule 2: Dean's List (ID: R-02)
-  [PASS] cgpa >= 3.50
-  [PASS] disciplinary_warnings == 0
+This lab provided practical exposure to the design and functionality of a Knowledge-Based System and helped students understand the relationship between declarative knowledge and logical reasoning.
 
-Rule matched successfully!
-Status: Dean's List
+---
 
-Final Result: Dean's List
---------------------------------------------------------------------------------
+## Sample Lab Submission Format
 
-================================================================================
-Student: Sara Malik
-CGPA: 3.95
-Disciplinary Warnings: 1
-================================================================================
+Students may write the final answer in this format:
 
-Checking Rule 1: Magna Cum Laude Honors (ID: R-01)
-  [PASS] cgpa >= 3.70
-  [FAIL] disciplinary_warnings == 0
-Rule did not match. Moving to next rule.
+### Title
+Practical Lab 1: Google Colab Setup & Building a Knowledge-Based System (KBS)
 
-Checking Rule 2: Dean's List (ID: R-02)
-  [PASS] cgpa >= 3.50
-  [FAIL] disciplinary_warnings == 0
-Rule did not match. Moving to next rule.
+### Objective
+To understand Colab, knowledge representation, inference mechanism, and rule-based decision making.
 
-No rule matched the student profile.
-Final Result: No matching rule
---------------------------------------------------------------------------------
-```
+### Tools Used
+- Google Colab
+- Python 3
+- Knowledge Base dictionary
+- Inference Engine function
 
+### Code
+[Python code written in notebook cells]
 
-# University Student Evaluation System
+### Output
+[Sample result screenshots or printed results]
 
-## Objective
-This project demonstrates rule-based reasoning for evaluating students.
+### Result
+The system correctly classified students based on attendance and marks and could be extended for degree honors and other academic rules.
 
-## Rules
-1. Magna Cum Laude Honors:
-   - cgpa >= 3.70
-   - disciplinary_warnings == 0
+---
 
-2. Dean's List:
-   - cgpa >= 3.50
-   - disciplinary_warnings == 0
-
-## How it works
-The application checks ea
-- a presentation-ready slide deck in text format,
-- or a cleaner notebook version with exact formatting for Colab.
+If you want, I can also generate:
+1. a shorter version for class submission,
+2. a fully formatted Word-style report,
+3. a cleaner notebook-ready version with comments,
+4. or a polished lab report in Urdu/English bilingual style.
