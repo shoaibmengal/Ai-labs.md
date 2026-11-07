@@ -14,6 +14,11 @@
 - HTML / CSS
 - Git & GitHub
 - Machine Learning (Learning)
+-oop
+-data structure
+-database
+-information security
+-networking
 
 ### 📚 Currently Learning
 - Python Programming
