@@ -1,6 +1,5 @@
 # Lab: Uninformed Search — BFS and DFS on a 2D Maze
 
-**Course:** Artificial Intelligence  
 **Topic:** Uninformed Search  
 **Objective:** Implement and compare Breadth-First Search (BFS) and Depth-First Search (DFS) on the same 2D maze, then analyze path length, frontier size, and algorithm behavior.
 
