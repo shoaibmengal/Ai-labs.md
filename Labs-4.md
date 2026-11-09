@@ -1,5 +1,3 @@
-Below is a professional, Markdown-formatted submission for the Lab 4 student tasks, lab questions, and extension. Exact results from randomized experiments may vary between runs.
-
 # Lab 4 — Hill-Climbing Search with the N-Queens Problem
 
 ## Task 1: State Representation
