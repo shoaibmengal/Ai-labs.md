@@ -1,5 +1,5 @@
 
-## Part 4: Student Exercises
+## Labs-1: Student Exercises
 
 ### Exercise 1: Add a Degree Honors Rule
 
@@ -135,7 +135,3 @@ To understand Colab, knowledge representation, inference mechanism, and rule-bas
 
 ### Result
 The system correctly classified students based on attendance and marks and could be extended for degree honors and other academic rules.
-
----a fully formatted Word-style report,
-3. a cleaner notebook-ready version with comments,
-4. or a polished lab report in Urdu/English bilingual st
