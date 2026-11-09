@@ -1,10 +1,10 @@
-Neeche Lab 4 ke student tasks, lab questions aur extension ke liye ek professional, Markdown-format submission di gayi hai. Randomized experiments ke exact results har run mein badal sakte hain, is liye unke numbers ghair-haqiqi taur par fill nahi kiye; diye gaye code ko notebook mein run karne par tables aur results khud generate honge.
+Below is a professional, Markdown-formatted submission for the Lab 4 student tasks, lab questions, and extension. Exact results from randomized experiments may vary between runs.
 
 # Lab 4 — Hill-Climbing Search with the N-Queens Problem
 
 ## Task 1: State Representation
 
-State `[1, 3, 0, 2]` mein list ka index column ko aur value queen ki row ko show karti hai.
+In the state `[1, 3, 0, 2]`, the list index represents the column, and the value represents the queen's row.
 
 ```python
 state = [1, 3, 0, 2]
@@ -18,15 +18,15 @@ print("State:", state)
 State: [1, 3, 0, 2]
 ```
 
-Is state mein har column mein ek queen hai. Is arrangement mein queens ek doosre ko attack nahi kartin, is liye yeh 4-Queens ka valid solution hai.
+There is one queen in each column in this state. No queens attack one another in this arrangement, so it is a valid solution to the 4-Queens problem.
 
 ---
 
-## Task 2: Different Board Sizes ke Experiments
+## Task 2: Experiments with Different Board Sizes
 
-Random initial states ki wajah se ek hi board size par different runs ke results mukhtalif ho sakte hain. Neeche diya gaya cell required runs karta hai aur results ko Markdown table mein print karta hai.
+Because the initial states are random, results may vary across different runs for the same board size. The cell below performs the required runs and prints the results as a Markdown table.
 
-> `random.seed(42)` results ko reproducible banane mein madad karta hai. Phir bhi, apne Python environment mein cell run karke apne actual results report karein.
+> `random.seed(42)` helps make results reproducible. Even so, run the cell in your own Python environment and report your actual results.
 
 ```python
 import random
@@ -67,18 +67,18 @@ for result in results:
     )
 ```
 
-### Observation
+### Observations
 
-- Ek hi board size ke different runs mukhtalif final conflict counts de sakte hain.
-- Hill-Climbing sirf us waqt move karta hai jab koi neighbor current state se behtar ho.
-- Agar koi behtar neighbor na mile, algorithm ruk jata hai—even agar conflicts abhi bhi baqi hon.
-- `Iterations` is lab code mein `scores` ki length hai. Is mein initial state aur final state dono ki evaluation shamil hoti hai; yeh zaroori nahi ke yeh accepted moves ki exact tadaad ho.
+- Different runs for the same board size may produce different final conflict counts.
+- Hill-Climbing moves only when it finds a neighbor that is better than the current state.
+- If no better neighbor is found, the algorithm stops—even if conflicts remain.
+- In this lab's code, `Iterations` is the length of `scores`. It includes the evaluations of both the initial and final states, so it is not necessarily the exact number of accepted moves.
 
 ---
 
-## Task 3: Basic aur Random-Restart Hill-Climbing ka Muqabla
+## Task 3: Comparing Basic and Random-Restart Hill-Climbing
 
-Neeche diya gaya cell dono algorithms ko paanch martaba chalata hai aur har run ke results print karta hai.
+The cell below runs both algorithms five times and prints the results for each run.
 
 ```python
 random.seed(42)
@@ -118,65 +118,65 @@ for run in range(1, 6):
 
 ### Comparison
 
-Basic Hill-Climbing ek random initial state se search shuru karta hai. Agar woh non-solution local maximum par ruk jaye, to us run mein solution nahi milta.
+Basic Hill-Climbing starts its search from one random initial state. If it gets stuck at a non-solution local maximum, it does not find a solution in that run.
 
-Random-Restart Hill-Climbing har unsuccessful run ke baad nayi random starting state se koshish karta hai. Is se solution milne ka chance barhta hai, lekin 100 jaise fixed restart limit ke andar solution milne ki guarantee nahi hoti. Actual restarts aur solved/unsolved results upar wala code run karne ke baad report kiye ja sakte hain.
+Random-Restart Hill-Climbing tries again from a new random starting state after each unsuccessful run. This increases the chance of finding a solution, but does not guarantee success within a fixed restart limit, such as 100. The actual number of restarts and whether each run is solved can be reported after running the code above.
 
 ---
 
 ## Lab Questions
 
-### Question 1: Hill-Climbing mein evaluation function ka kya maqsad hai?
+### Question 1: What is the purpose of the evaluation function in Hill-Climbing?
 
-Evaluation function current state ki quality measure karta hai. Is lab mein yeh queen-pairs ke conflicts ko count karke uska negative return karta hai. Is se algorithm states ko compare kar sakta hai aur behtar neighbor select kar sakta hai.
+The evaluation function measures the quality of the current state. In this lab, it counts the conflicting pairs of queens and returns the negative of that count. This allows the algorithm to compare states and select a better neighbor.
 
-### Question 2: Evaluation score zero sab se behtar result kyun hai?
+### Question 2: Why is an evaluation score of zero the best result?
 
-Score `-count_conflicts(state)` hai. Zero conflicts ka score `0` hota hai. Conflicts ki tadaad negative score deti hai, is liye zero sab se bara aur behtareen mumkin score hai.
+The score is `-count_conflicts(state)`. A state with zero conflicts has a score of `0`. States with conflicts have negative scores, so zero is the highest and best possible score.
 
-### Question 3: Local maximum aur global maximum mein kya farq hai?
+### Question 3: What is the difference between a local maximum and a global maximum?
 
-**Local maximum** aisi state hai jiska score uske immediate neighbors se behtar ya unke barabar ho. **Global maximum** poore search space mein sab se behtar score wali state hai. Local maximum global maximum bhi ho sakta hai, lekin zaroori nahi.
+A **local maximum** is a state whose score is better than or equal to the scores of its immediate neighbors. A **global maximum** is the state with the best score in the entire search space. A local maximum may also be the global maximum, but not necessarily.
 
-### Question 4: Solution maujood hone ke bawajood basic Hill-Climbing kyun ruk sakta hai?
+### Question 4: Why might basic Hill-Climbing stop even though a solution exists?
 
-Basic Hill-Climbing sirf current state ke neighbors dekhta hai. Agar un mein se koi neighbor score improve na kare, algorithm ruk jata hai. Solution kisi aur jagah search space mein ho sakta hai, lekin us tak jaane ke liye pehle aisa move karna par sakta hai jo current score ko improve na kare. Yeh implementation aisa move accept nahi karti.
+Basic Hill-Climbing only examines the neighbors of the current state. If none of them improves the score, the algorithm stops. A solution may exist elsewhere in the search space, but reaching it might require first making a move that does not improve the current score. This implementation does not accept such a move.
 
-### Question 5: Kya local maximum tak pahunchna hamesha failure hota hai?
+### Question 5: Is reaching a local maximum always a failure?
 
-Nahi. Agar local maximum ka score zero ho, to woh valid N-Queens solution hai aur algorithm kamyab hai. Failure sirf tab hoti hai jab algorithm nonzero conflicts wali state par ruk jaye.
+No. If the local maximum has a score of zero, it is a valid N-Queens solution and the algorithm has succeeded. It is a failure only when the algorithm stops at a state with nonzero conflicts.
 
-### Question 6: N = 8 ke liye har state ke kitne neighbors hain?
+### Question 6: How many neighbors does each state have for N = 8?
 
-Har column mein queen ko baqi `N - 1` rows mein move kiya ja sakta hai. Is liye neighbors ki tadaad:
+In each column, the queen can be moved to any of the other `N - 1` rows. Therefore, the number of neighbors is:
 
 `N × (N - 1) = 8 × 7 = 56`
 
-### Question 7: Evaluation-score graph kya batata hai?
+### Question 7: What does the evaluation-score graph show?
 
-Graph dikhata hai ke search ke dauran evaluation score kaise badalta hai. Basic Hill-Climbing mein accepted moves score ko improve karte hain, is liye score non-decreasing hota hai. Agar final score zero ho, solution mil gaya. Agar final score negative ho, algorithm conflicts baqi hone ke bawajood ruk gaya.
+The graph shows how the evaluation score changes during the search. In Basic Hill-Climbing, accepted moves improve the score, so it is non-decreasing. If the final score is zero, a solution has been found. If the final score is negative, the algorithm stopped while conflicts remained.
 
-### Question 8: Probabilistic completeness ko apne alfaaz mein samjhayen.
+### Question 8: Explain probabilistic completeness in your own words.
 
-Probabilistic completeness ka matlab hai ke agar har independent run ke paas solution tak pahunchne ka nonzero chance ho, to zyada runs ke saath kam az kam ek solution milne ka chance 1 ke qareeb ja sakta hai. Yeh kisi fixed number of runs ke andar success ki guarantee nahi deta.
+Probabilistic completeness means that if each independent run has a nonzero chance of finding a solution, then as the number of runs increases, the chance of finding at least one solution can approach 1. It does not guarantee success within any fixed number of runs.
 
-### Question 9: Random-Restart Hill-Climbing solution ka chance kyun barhata hai?
+### Question 9: Why does Random-Restart Hill-Climbing increase the chance of finding a solution?
 
-Har restart nayi random initial state se search shuru karta hai. Is se algorithm ko search space ke mukhtalif hisson se solution dhoondhne ke multiple chances milte hain. Ek run local maximum par ruk sakta hai, jabke doosra run solution tak pahunch sakta hai.
+Each restart begins the search from a new random initial state. This gives the algorithm multiple opportunities to search different parts of the search space. One run may get stuck at a local maximum, while another may reach a solution.
 
-### Question 10: Kya probabilistic completeness 100 restarts ke andar solution ki guarantee deta hai?
+### Question 10: Does probabilistic completeness guarantee a solution within 100 restarts?
 
-Nahi. Yeh fixed 100 restarts ke andar success guarantee nahi karta. Agar har independent run ka success chance `p` ho, to `k` runs mein success ka chance:
+No. It does not guarantee success within a fixed 100 restarts. If each independent run has a success probability of `p`, then the probability of success in `k` runs is:
 
 `P(success) = 1 - (1 - p)^k`
 
-hota hai. Yeh chance `k` ke saath barhta hai, magar finite `k` par failure ka chance baqi reh sakta hai.
+This probability increases with `k`, but the possibility of failure remains for any finite `k`.
 
 ---
 
 ## Extension Task: N = 20
 
-Neeche diya gaya cell N = 20 ke liye ek basic run aur Random-Restart run karta hai.
+The cell below performs one Basic Hill-Climbing run and one Random-Restart run for N = 20.
 
 ```python
 random.seed(42)
@@ -209,13 +209,13 @@ print("Solved:", restart_conflicts == 0)
 
 ### Extension Discussion
 
-Basic run ka result initial random state par depend karta hai. Agar final conflicts zero hon, valid solution mil gaya; warna algorithm non-solution state par ruk gaya. Random restarts solution dhoondhne ke additional chances dete hain, lekin restart limit ke andar success guaranteed nahi hoti.
+The result of the basic run depends on the initial random state. If the final number of conflicts is zero, a valid solution has been found; otherwise, the algorithm stopped at a non-solution state. Random restarts provide additional chances to find a solution, but success is not guaranteed within the restart limit.
 
-N barhne par har state ke neighbors ki tadaad `N × (N - 1)` hoti hai. Is liye bade board ke liye har iteration mein zyada neighbors evaluate karne padte hain. Random initial state bhi search ki progress aur required iterations par asar انداز hoti hai.
+As N increases, each state has `N × (N - 1)` neighbors. Therefore, more neighbors must be evaluated during each iteration for a larger board. The random initial state also affects the search's progress and the number of iterations required.
 
-### N = 20 ke liye Valid State ki Verification
+### Verifying a Valid State for N = 20
 
-Neeche diya gaya state ek known valid N = 20 arrangement hai. Yeh algorithm ke run ka result nahi, balki verification ke liye ek valid example hai.
+The state below is a known valid arrangement for N = 20. It is not the result of the algorithm's run, but an example used for verification.
 
 ```python
 valid_state_20 = [
@@ -234,4 +234,4 @@ Conflicts: 0
 Valid solution: True
 ```
 
-Yeh state confirm karta hai ke N = 20 ke liye solution maujood hai. Lekin yeh apne aap mein sabit nahi karta ke random-restart experiment ne isi state ko find kiya; experiment ka apna result code run karne ke baad record karein.
+This state confirms that a solution exists for N = 20. However, it does not by itself prove that the random-restart experiment found this state; record the experiment's own result after running the code.
