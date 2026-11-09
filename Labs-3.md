@@ -1,5 +1,4 @@
 # Week 4 Lab: A* Search for the 8-Puzzle
-## (Google Colab Edition)
 
 ### Objective
 Implement the A* search algorithm and apply it to the 8-puzzle problem. In this lab, you will:
@@ -7,8 +6,6 @@ Implement the A* search algorithm and apply it to the 8-puzzle problem. In this 
 - implement the A* algorithm with a priority queue,
 - implement both heuristics,
 - compare their performance on increasingly difficult puzzle states.
-
----
 
 ## 1. Problem Representation
 
@@ -327,10 +324,5 @@ plt.show()
 
 ---
 
-## Professional Summary
+##  Summary
 This lab demonstrates how A* search improves efficiency using informed heuristics. The Misplaced Tiles heuristic is simple but weak, while Manhattan Distance is stronger because it captures the actual distance each tile must travel. Both heuristics are admissible, but Manhattan Distance leads to fewer node expansions and faster search in harder puzzle states. This illustrates the central idea of AI search: a better heuristic can dramatically improve performance without sacrificing optimality.
-
-If you want, I can also turn this into:
-- a cleaner GitHub-ready Markdown file,
-- a student report format,
-- or a shorter version suitable for submission on LMS.
